@@ -15,8 +15,8 @@ class _BookingPageState extends State<BookingPage> {
   String updatedTime = '${_time.hour} : ${_time.minute}';
 
   List _services = [
-    "Boys haircut",
-    "Ladies haircut",
+    "Male haircut",
+    "Female haircut",
     "Manicure",
   ];
 
@@ -77,90 +77,157 @@ class _BookingPageState extends State<BookingPage> {
 
     final discription = Padding(
       padding: EdgeInsets.all(20),
-      child: Text("Book a service",
-          style: TextStyle(color: Colors.pinkAccent, fontSize: 50)),
+      child: Text("Let's fill in some details...",
+          style: TextStyle(color: Colors.pinkAccent, fontSize: 24)),
     );
 
-    final dateField = Padding(
-      padding: EdgeInsets.all(10),
-      child: Row(
-        children: <Widget>[
-          IconButton(
-            icon: Icon(
-              Icons.date_range,
-              color: Colors.pinkAccent,
-            ),
-            onPressed: () async {
-              _selectDate(context);
-            },
-          ),
-          Padding(
-            padding: EdgeInsets.all(25),
-            child: Text(updatedDate),
-          )
-        ],
+    final dateField = ListTile(
+      leading: Icon(
+        Icons.date_range,
+        color: Colors.pinkAccent,
       ),
+      title: Text(
+        updatedDate,
+        style: TextStyle(color: Colors.pinkAccent),
+      ),
+      onTap: () async {
+        _selectDate(context);
+      },
     );
 
-    final timeField = Padding(
-      padding: EdgeInsets.all(10),
-      child: Row(
-        children: <Widget>[
-          IconButton(
-            icon: Icon(
-              Icons.date_range,
-              color: Colors.pinkAccent,
-            ),
-            onPressed: () {
-              _selectTime(context);
-            },
-          ),
-          Padding(
-            padding: EdgeInsets.all(25),
-            child: Text(updatedTime),
-          )
-        ],
+    final timeField = ListTile(
+      leading: Icon(
+        Icons.date_range,
+        color: Colors.pinkAccent,
       ),
+      title: Text(
+        updatedTime,
+        style: TextStyle(color: Colors.pinkAccent),
+      ),
+      onTap: () async {
+        _selectTime(context);
+      },
     );
+    // Padding(
+    //   padding: EdgeInsets.all(10),
+    //   child: Row(
+    //     children: <Widget>[
+    //       IconButton(
+    //         icon: Icon(
+    //           Icons.date_range,
+    //           color: Colors.pinkAccent,
+    //         ),
+    //         onPressed: () async {
+    //           _selectDate(context);
+    //         },
+    //       ),
+    //       Padding(
+    //         padding: EdgeInsets.all(25),
+    //         child: Text(updatedDate),
+    //       )
+    //     ],
+    //   ),
+    // );
+
+    // final timeField = Padding(
+    //   padding: EdgeInsets.all(10),
+    //   child: Row(
+    //     children: <Widget>[
+    //       IconButton(
+    //         icon: Icon(
+    //           Icons.date_range,
+    //           color: Colors.pinkAccent,
+    //         ),
+    //         onPressed: () {
+    //           _selectTime(context);
+    //         },
+    //       ),
+    //       Padding(
+    //         padding: EdgeInsets.all(25),
+    //         child: Text(updatedTime),
+    //       )
+    //     ],
+    //   ),
+    // );
 
     final submitButton = Padding(
-      padding: EdgeInsets.all(15),
+      padding: EdgeInsets.all(0),
       child: RaisedButton(
-        child: Text("Submit"),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(24),
+        ),
+        child: Text(
+          "Submit",
+          style: TextStyle(color: Colors.white, fontSize: 18),
+        ),
         color: Colors.pinkAccent,
+        onPressed: () {},
       ),
     );
 
     final dropDownButton = Padding(
-      padding: EdgeInsets.all(20),
-      child: Center(child:Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Text("Service : "),
-          DropdownButton(
-            value: _selectedServices,
-            items: _dropDownMenuItems,
-            onChanged: changedDropDownItem,
-          )
-        ],
-      ),)
-    );
+        padding: EdgeInsets.all(16),
+        child: Center(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                "Service : ",
+                style: TextStyle(color: Colors.pinkAccent, fontSize: 18),
+              ),
+              DropdownButton(
+                style: TextStyle(color: Colors.pinkAccent, fontSize: 20),
+                value: _selectedServices,
+                items: _dropDownMenuItems,
+                onChanged: changedDropDownItem,
+              )
+            ],
+          ),
+        ));
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Booking"),
+        elevation: 1,
+        title: Text(
+          "Book Appointment",
+          style: TextStyle(fontSize: 24),
+        ),
         backgroundColor: Colors.pinkAccent,
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(title: Text("Booking..."), icon: Icon(Icons.home)),
+          BottomNavigationBarItem(
+              title: Text("My Schedule"), icon: Icon(Icons.access_time)),
+          BottomNavigationBarItem(
+              title: Text("Community"), icon: Icon(Icons.people)),
+        ],
       ),
       body: Container(
         child: Center(
-          child: Column(
+          child: ListView(
             children: <Widget>[
               discription,
-              dateField,
-              timeField,
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 32),
+                child: dateField,
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 32),
+                child: timeField,
+              ),
               dropDownButton,
-              address,
-              submitButton
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 48),
+                child: address,
+              ),
+              Padding(
+                padding: EdgeInsets.fromLTRB(48, 16, 48, 0),
+                child: SizedBox(
+                  width: double.infinity, // match_parent
+                  child: submitButton,
+                ),
+              ),
             ],
           ),
         ),

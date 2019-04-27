@@ -2,27 +2,16 @@ import 'package:flutter/material.dart';
 
 import './booking_page.dart';
 
-
 class HomePage extends StatelessWidget {
   static String tag = 'home-page';
   String dropDownValue;
 
   @override
   Widget build(BuildContext context) {
-    final welcome = Hero(
-      tag: 'hero',
-      child: Padding(
-          padding: EdgeInsets.all(16.0),
-          child: Text(
-            'Welcome to Style Bhutan',
-            style: TextStyle(fontSize: 29.0, color: Colors.pinkAccent),
-          )),
-    );
-
     final service = Padding(
       padding: EdgeInsets.fromLTRB(25.0, 100.0, 25.0, 25.0),
       child: Text(
-        'Book our services now!', 
+        'Book our services now!',
         style: TextStyle(fontSize: 28.0, color: Colors.pinkAccent),
       ),
     );
@@ -39,12 +28,11 @@ class HomePage extends StatelessWidget {
             color: Colors.pinkAccent,
             child: Text(
               "Book now",
-              style: TextStyle(fontSize: 30, color: Colors.white),
+              style: TextStyle(fontSize: 30, color: Colors.white, fontWeight: FontWeight.w900),
             ),
             onPressed: () {
-              Navigator.push(context, MaterialPageRoute(
-                builder: (context) => BookingPage()
-              ));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => BookingPage()));
             },
           ),
         ),
@@ -53,39 +41,79 @@ class HomePage extends StatelessWidget {
 
     final body = Container(
       width: MediaQuery.of(context).size.width,
-      padding: EdgeInsets.all(28.0),
-      decoration: BoxDecoration(color: Colors.white),
-      child: Column(
-        children: <Widget>[welcome, service, bookButton,],
+      child: ListView(
+        padding: EdgeInsets.all(32),
+        children: <Widget>[
+          Card(
+            margin: EdgeInsets.all(16),
+            color: Colors.grey[100],
+            child: Padding(padding: EdgeInsets.all(24),child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text("You have don't have any appointments today", style: TextStyle(color: Colors.pinkAccent, fontSize: 24),),
+                Divider(),
+                ListTile(
+                  leading: Icon(Icons.calendar_today, color: Colors.pinkAccent,),
+                  title: Text("5 PM, May 6", style: TextStyle(color: Colors.pinkAccent, fontSize: 16),),
+                  onTap: (){},
+                ),
+                ListTile(
+                  leading: Icon(Icons.calendar_today, color: Colors.pinkAccent,),
+                  title: Text("6:30 PM, May 15", style: TextStyle(color: Colors.pinkAccent, fontSize: 16),),
+                  onTap: (){},                
+                ),
+                ListTile(
+                  leading: Icon(Icons.add, color: Colors.pinkAccent,),
+                  onTap: (){},
+                  title: Text("Set an Appointment", style: TextStyle(color: Colors.pinkAccent, fontSize: 16, fontWeight: FontWeight.w600),),
+                ),
+              ],
+            )),
+          ),
 
+          bookButton,
+        ],
       ),
     );
 
     return Scaffold(
-      body: body,
-      drawer: Drawer(
-        child: Container(
-          child: Column(
-            children: <Widget>[],
+          backgroundColor: Colors.white,
+          body: body,
+          bottomNavigationBar: BottomNavigationBar(
+            items: <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                title: Text("Home"),
+                icon: Icon(Icons.home)
+              ),
+              BottomNavigationBarItem(
+                title: Text("My Schedule"),
+                icon: Icon(Icons.access_time)
+              ),
+              BottomNavigationBarItem(
+                title: Text("Community"),
+                icon: Icon(Icons.people)
+              ),
+            ],
           ),
-        ),
-      ),
-      appBar: AppBar(
-        backgroundColor: Colors.pinkAccent,
-        title: Text("Style Bhutan",
-            style: TextStyle(
-              color: Colors.white,
-            )),
-      ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.pinkAccent,
-        child: IconButton(
-          icon: Icon(Icons.schedule),
-          color: Colors.white,
-          onPressed: () => {},
-        ),
-        onPressed: () {},
-      ),
-    );
+          appBar: AppBar(
+            iconTheme: IconThemeData(color: Colors.white),
+            title: Text("Style Bhutan", style: TextStyle(color: Colors.white, fontSize: 28),),
+            titleSpacing: 48,
+            elevation: 0,
+            backgroundColor: Colors.pinkAccent,
+            actions: <Widget>[
+              IconButton(icon: Icon(Icons.settings), onPressed: (){},)
+            ],
+          ),
+          floatingActionButton: FloatingActionButton(
+            backgroundColor: Colors.grey[200],
+            child: IconButton(
+              icon: Icon(Icons.search),
+              color: Colors.pinkAccent,
+              onPressed: () => {},
+            ),
+            onPressed: () {},
+          ),
+        );
   }
 }

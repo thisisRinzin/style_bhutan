@@ -15,29 +15,33 @@ class _LoginPageState extends State<LoginPage> {
       child: CircleAvatar(
         backgroundColor: Colors.transparent,
         radius: 48.0,
-        child: Image.asset('assets/logo.png',),
+        child: Image.asset(
+          'assets/logo.png',
+        ),
       ),
     );
 
     final email = TextFormField(
       keyboardType: TextInputType.emailAddress,
       autofocus: false,
-      initialValue: 'something@gmail.com',
       decoration: InputDecoration(
-        hintText: 'Email',
+        prefixIcon: Icon(Icons.email),
+        hintText: 'something@gmail.com',
         contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
+        enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0),borderSide: BorderSide(color: Colors.black26))
       ),
     );
 
     final password = TextFormField(
       autofocus: false,
-      initialValue: 'some password',
       obscureText: true,
       decoration: InputDecoration(
+        prefixIcon: Icon(Icons.lock),
         hintText: 'Password',
         contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
+        enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0),borderSide: BorderSide(color: Colors.black26))
       ),
     );
 
@@ -48,11 +52,12 @@ class _LoginPageState extends State<LoginPage> {
           borderRadius: BorderRadius.circular(24),
         ),
         onPressed: () {
-          Navigator.of(context).pushNamed(HomePage.tag);
+          Navigator.of(context).pushReplacementNamed(HomePage.tag);
         },
         padding: EdgeInsets.all(12),
         color: Colors.pinkAccent,
-        child: Text('Log In', style: TextStyle(color: Colors.white)),
+        child: Text('Log In',
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.w900)),
       ),
     );
 
@@ -66,21 +71,41 @@ class _LoginPageState extends State<LoginPage> {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Center(
-        child: ListView(
-          shrinkWrap: true,
-          padding: EdgeInsets.only(left: 24.0, right: 24.0),
-          children: <Widget>[
-            logo,
-            SizedBox(height: 48.0),
-            email,
-            SizedBox(height: 8.0),
-            password,
-            SizedBox(height: 24.0),
-            loginButton,
-            forgotLabel
-          ],
-        ),
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.white,
+      ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Expanded(
+            child: logo,
+            flex: 1,
+          ),
+          Expanded(
+            flex: 1,
+            child: ListView(
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.fromLTRB(36, 0, 36, 18),
+                  child: email,
+                ),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(36, 0, 36, 16),
+                  child: password,
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 36),
+                  child: SizedBox(
+                    width: double.infinity, // match_parent
+                    child: loginButton,
+                  ),
+                ),
+                forgotLabel
+              ],
+            ),
+          )
+        ],
       ),
     );
   }
